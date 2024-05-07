@@ -1,4 +1,5 @@
 package com.example.hw7_2m;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -8,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
-    private Integer first, second, sum, result, umResult, dResult;
+    private Integer first, second, result;
     private Boolean isOparationClick;
     private String opeation;
+    private Button button;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -21,79 +25,79 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text_view);
+        button = findViewById(R.id.btn_next);
     }
 
-    public void onOperationClick(View view) {
-
-        String textButton = ((Button) view).getText().toString();
-        switch (textButton) {
-            case "+":
-                first = Integer.valueOf(textView.getText().toString());
-                opeation = "+";
-                break;
-            case "-":
-
-                first = Integer.valueOf(textView.getText().toString());
-                opeation = "-";
-                break;
-            case "x":
-
-                first = Integer.valueOf(textView.getText().toString());
-                opeation = "x";
-                break;
-            case "/":
-
-                first = Integer.valueOf(textView.getText().toString());
-                opeation = "/";
-                break;
-            case "=":
-
-
-                second = Integer.valueOf(textView.getText().toString());
-                switch (opeation) {
-                    case "+":
-                        sum = first + second;
-                        textView.setText(sum.toString());
-                        break;
-                    case "-":
-                        result = first - second;
-                        textView.setText(result.toString());
-                        break;
-                    case "x":
-                        umResult = first * second;
-                        textView.setText(umResult.toString());
-                        break;
-                    case "/":
-                        if (second!=0){
-                            dResult=first/second;
-                            textView.setText(dResult.toString());
-                        }else if (second==0) {
-                            textView.setText("нельзя делить на ноль");
-                        }
-                        break;
-                }
-
-                break;
-        }
-        isOparationClick = true;
-    }
-
-
+    //button.setOnClickListener(v -> {
+    //  Intent intent = new Intent(MainActivity.this, TwoActivity.class);
+    //intent.putExtra("key", result);
+    // startActivity(intent);
+    // finish();
+    //});
     public void onNumberClick(View view) {
-        String textButton = ((Button) view).getText().toString();
-        if (textButton.equals("AC")) {
+        if (view.getId() == R.id.ubrat) {
             textView.setText("0");
-            first = 0;
-        } else if (textView.getText().toString().equals("0") || isOparationClick) {
-
-            textView.setText(textButton);
         } else {
-
-            textView.append(textButton);
+            String text = ((Button) view).getText().toString();
+            if (textView.getText().toString().equals("0") || isOparationClick) {
+                textView.setText(text);
+            } else {
+                textView.append(text);
+            }
         }
+        button.setVisibility(View.GONE);
         isOparationClick = false;
     }
 
+    public void onOperationClick(View view) {
+        button.setVisibility(View.GONE);
+        if (view.getId() == R.id.plus) {
+            first = Integer.valueOf(textView.getText().toString());
+            opeation = "+";
+
+        } else if (view.getId() == R.id.delenie) {
+            first = Integer.valueOf(textView.getText().toString());
+            opeation = "/";
+
+        } else if (view.getId() == R.id.minus) {
+            first = Integer.valueOf(textView.getText().toString());
+            opeation = "-";
+
+        } else if (view.getId() == R.id.umnozhit) {
+            first = Integer.valueOf(textView.getText().toString());
+            opeation = "*";
+
+        } else if (view.getId() == R.id.ravno) {
+            second = Integer.valueOf(textView.getText().toString());
+            if (opeation.equals("+")) {
+                result = first + second;
+                textView.setText(result.toString());
+            } else if (opeation.equals("-")) {
+                result = first - second;
+                textView.setText(result.toString());
+            } else if (opeation.equals("*")) {
+                result = first * second;
+                textView.setText(result.toString());
+            } else if (opeation.equals("/")) {
+                if (second == 0) {
+                    textView.setText("Error");
+                } else {
+                    result = first / second;
+                }
+            }
+            textView.setText(result.toString());
+            button.setVisibility(View.VISIBLE);
+
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, TwoActivity.class);
+                intent.putExtra("key", result.toString());
+                startActivity(intent);
+                finish();
+            });
+
+        }
+        isOparationClick = true;
+    }
 
 }
 

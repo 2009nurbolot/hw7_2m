@@ -55,6 +55,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:onClick="onNumberClick"
+                android:id="@+id/ubrat"
                 style="@style/Gray.button"
                 android:text="AC"/>
 
@@ -136,6 +137,7 @@
                 style="@style/Orange.button"
                 android:onClick="onOperationClick"
                 android:layout_marginStart="16dp"
+                android:id="@+id/minus"
                 android:text="-" />
 
         </LinearLayout>
@@ -183,9 +185,10 @@
                 android:id="@+id/zero"
                 style="@style/Dark.Gray.button"
                 android:layout_width="176dp"
-                android:text="0"
+                android:onClick="onNumberClick"
                 android:textAlignment="textStart"
                 android:paddingStart="32dp"
+                android:text="0"
                 />
 
             <com.google.android.material.button.MaterialButton

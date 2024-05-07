@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">hw7_m2</string>
+    <string-array name="Type">
+        <item>Type</item>
+        <item>first</item>
+        <item>second</item>
+        <item>third</item>
+    </string-array>
 </resources>

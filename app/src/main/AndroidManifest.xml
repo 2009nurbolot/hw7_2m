@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hw7_2m"
         tools:targetApi="31">
+
+        <activity android:name=".TwoActivity"
+            android:exported="true">
+            
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
